@@ -1,9 +1,11 @@
 import './App.css'
 import first from './assets/18.svg'
+import GlobalStyle from './styles/globalStyle'
 
 function App() {
   return (
     <>
+      <GlobalStyle />
       <header>
         <h1>Memory Game</h1>
         <div>
