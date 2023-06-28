@@ -1,13 +1,14 @@
+import { Button, ButtonContainer } from "./Button";
 import Title from "./Title";
 
 function Header() {
   return (
     <header>
       <Title>Memory Game</Title>
-      <div>
-        <button>Restart</button>
-        <button>New Game</button>
-      </div>
+      <ButtonContainer>
+        <Button>Restart</Button>
+        <Button $variant="dark">New Game</Button>
+      </ButtonContainer>
     </header>
   );
 }
