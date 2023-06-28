@@ -9,6 +9,7 @@
 - Vite
 - Jest
 - React Testing Library
+- Styled Components
 
 ## How to run
 
