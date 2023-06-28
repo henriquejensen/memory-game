@@ -1,7 +1,8 @@
-import './App.css'
-import first from './assets/18.svg'
-import Header from './components/Header'
-import GlobalStyle from './styles/globalStyle'
+import "./App.css";
+import first from "./assets/18.svg";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import GlobalStyle from "./styles/globalStyle";
 
 function App() {
   return (
@@ -13,18 +14,9 @@ function App() {
           <img src={first} alt="first" />
         </div>
       </main>
-      <footer>
-        <div>
-          <span>Time:</span>
-          <span>00:00</span>
-        </div>
-        <div>
-          <span>Movements:</span>
-          <span>100</span>
-        </div>
-      </footer>
+      <Footer />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
