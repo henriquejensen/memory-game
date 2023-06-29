@@ -1,12 +1,16 @@
 import { Button, ButtonContainer } from "./Button";
 import Title from "./Title";
 
-function Header() {
+type HeaderProps = {
+  onRestart: () => void;
+};
+
+function Header({ onRestart }: HeaderProps) {
   return (
     <header>
       <Title>Memory Game</Title>
       <ButtonContainer>
-        <Button>Restart</Button>
+        <Button onClick={onRestart}>Restart</Button>
         <Button $variant="dark">New Game</Button>
       </ButtonContainer>
     </header>
