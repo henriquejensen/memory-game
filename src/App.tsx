@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import { Card, cardsGenerator } from "./helpers/cardsGenerator";
 import GlobalStyle from "./styles/globalStyle";
+import Swal from "sweetalert2";
 
 let intervalId: number;
 
@@ -14,6 +15,7 @@ function App() {
   const [moves, setMoves] = useState(0);
   const [time, setTime] = useState(0);
   const [restart, setRestart] = useState(false);
+  const [isGameOver, setIsGameOver] = useState(false);
 
   useEffect(() => {
     intervalId = setInterval(() => {
@@ -22,6 +24,28 @@ function App() {
 
     return () => clearInterval(intervalId);
   }, [restart]);
+
+  useEffect(() => {
+    if (isGameOver) {
+      clearInterval(intervalId);
+      Swal.fire({
+        html:
+          "<h1>Victory</h1>" +
+          "<br />" +
+          `Time: ${time} seconds` +
+          "<br />" +
+          `Moves: ${moves}`,
+        focusConfirm: false,
+        confirmButtonText: "New Game",
+        showCancelButton: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          handleRestart();
+        }
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isGameOver]);
 
   useEffect(() => {
     if (selectedIndexCard.length === 3) {
@@ -44,8 +68,14 @@ function App() {
     const newCards = cards.map((card) => ({ ...card }));
     newCards[index].isFlipped = true;
     setCards(newCards);
-    setSelectedIndexCard((prevState) => [...prevState, index]);
     setMoves((prevState) => prevState + 1);
+
+    if (newCards.every((card) => card.isFlipped)) {
+      setIsGameOver(true);
+      return;
+    }
+
+    setSelectedIndexCard((prevState) => [...prevState, index]);
   };
 
   const handleRestart = () => {
