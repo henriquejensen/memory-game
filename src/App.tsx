@@ -9,6 +9,7 @@ import GlobalStyle from "./styles/globalStyle";
 function App() {
   const [cards, setCards] = useState<Card[]>(cardsGenerator());
   const [selectedIndexCard, setSelectedIndexCard] = useState<number[]>([]);
+  const [moves, setMoves] = useState(0);
 
   useEffect(() => {
     if (selectedIndexCard.length === 3) {
@@ -32,11 +33,13 @@ function App() {
     newCards[index].isFlipped = true;
     setCards(newCards);
     setSelectedIndexCard((prevState) => [...prevState, index]);
+    setMoves((prevState) => prevState + 1);
   };
 
   const handleRestart = () => {
     setCards(cardsGenerator());
     setSelectedIndexCard([]);
+    setMoves(0);
   };
 
   return (
@@ -44,7 +47,7 @@ function App() {
       <GlobalStyle />
       <Header onRestart={handleRestart} />
       <Board cards={cards} onClickCard={handleClick} />
-      <Footer />
+      <Footer moves={moves} />
     </Container>
   );
 }

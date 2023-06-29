@@ -7,7 +7,11 @@ const Container = styled.div`
   margin-inline: 0.5rem;
 `;
 
-function Footer() {
+type FooterProps = {
+  moves: number;
+};
+
+function Footer({ moves }: FooterProps) {
   return (
     <footer>
       <ButtonContainer>
@@ -20,7 +24,7 @@ function Footer() {
         <Button>
           <Container>
             <span>Movements:</span>
-            <span>100</span>
+            <span>{moves}</span>
           </Container>
         </Button>
       </ButtonContainer>
