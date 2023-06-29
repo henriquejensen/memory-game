@@ -9,16 +9,17 @@ const Container = styled.div`
 
 type FooterProps = {
   moves: number;
+  time: number;
 };
 
-function Footer({ moves }: FooterProps) {
+function Footer({ moves, time }: FooterProps) {
   return (
     <footer>
       <ButtonContainer>
         <Button>
           <Container>
             <span>Time:</span>
-            <span>00:00</span>
+            <span>{time}</span>
           </Container>
         </Button>
         <Button>

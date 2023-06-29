@@ -6,10 +6,22 @@ import Header from "./components/Header";
 import { Card, cardsGenerator } from "./helpers/cardsGenerator";
 import GlobalStyle from "./styles/globalStyle";
 
+let intervalId: number;
+
 function App() {
   const [cards, setCards] = useState<Card[]>(cardsGenerator());
   const [selectedIndexCard, setSelectedIndexCard] = useState<number[]>([]);
   const [moves, setMoves] = useState(0);
+  const [time, setTime] = useState(0);
+  const [restart, setRestart] = useState(false);
+
+  useEffect(() => {
+    intervalId = setInterval(() => {
+      setTime((prevState) => prevState + 1);
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [restart]);
 
   useEffect(() => {
     if (selectedIndexCard.length === 3) {
@@ -40,6 +52,9 @@ function App() {
     setCards(cardsGenerator());
     setSelectedIndexCard([]);
     setMoves(0);
+    setTime(0);
+    setRestart((prevState) => !prevState);
+    clearInterval(intervalId);
   };
 
   return (
@@ -47,7 +62,7 @@ function App() {
       <GlobalStyle />
       <Header onRestart={handleRestart} />
       <Board cards={cards} onClickCard={handleClick} />
-      <Footer moves={moves} />
+      <Footer moves={moves} time={time} />
     </Container>
   );
 }
