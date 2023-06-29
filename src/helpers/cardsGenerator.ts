@@ -15,7 +15,7 @@ export type Card = {
     isFlipped: boolean;
 };
 
-export const cardsGenerator = (): Card[] => {
+export const cardsGenerator = (size: number): Card[] => {
 
     const cards = [
         { id: 1, image: first, name: "first", isFlipped: false },
@@ -28,7 +28,10 @@ export const cardsGenerator = (): Card[] => {
         { id: 8, image: eighth, name: "eighth", isFlipped: false },
         { id: 9, image: ninth, name: "ninth", isFlipped: false },
     ];
-    const doubleCards = cards.concat(cards);
+    
+    const slicedCards = cards.slice(0, size);
+
+    const doubleCards = slicedCards.concat(slicedCards);
 
     const randomCards = doubleCards.sort(() => Math.random() - 0.5);
 

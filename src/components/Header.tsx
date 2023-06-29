@@ -3,15 +3,18 @@ import Title from "./Title";
 
 type HeaderProps = {
   onRestart: () => void;
+  onNewGame: () => void;
 };
 
-function Header({ onRestart }: HeaderProps) {
+function Header({ onRestart, onNewGame }: HeaderProps) {
   return (
     <header>
       <Title>Memory Game</Title>
       <ButtonContainer>
-        <Button onClick={onRestart}>Restart</Button>
-        <Button $variant="dark">New Game</Button>
+        <Button onClick={() => onRestart()}>Restart</Button>
+        <Button $variant="dark" onClick={onNewGame}>
+          New Game
+        </Button>
       </ButtonContainer>
     </header>
   );

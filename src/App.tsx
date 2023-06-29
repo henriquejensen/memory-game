@@ -6,11 +6,15 @@ import Header from "./components/Header";
 import { Card, cardsGenerator } from "./helpers/cardsGenerator";
 import GlobalStyle from "./styles/globalStyle";
 import Swal from "sweetalert2";
+import { DEFAULT_GAME_CONFIG } from "./constants";
 
 let intervalId: number;
 
 function App() {
-  const [cards, setCards] = useState<Card[]>(cardsGenerator());
+  const [gameSize, setGameSize] = useState(DEFAULT_GAME_CONFIG.size);
+  const [cards, setCards] = useState<Card[]>(
+    cardsGenerator(DEFAULT_GAME_CONFIG.size)
+  );
   const [selectedIndexCard, setSelectedIndexCard] = useState<number[]>([]);
   const [moves, setMoves] = useState(0);
   const [time, setTime] = useState(0);
@@ -78,19 +82,40 @@ function App() {
     setSelectedIndexCard((prevState) => [...prevState, index]);
   };
 
-  const handleRestart = () => {
-    setCards(cardsGenerator());
+  const handleRestart = (size = gameSize) => {
+    setCards(cardsGenerator(size));
     setSelectedIndexCard([]);
     setMoves(0);
     setTime(0);
     setRestart((prevState) => !prevState);
     clearInterval(intervalId);
+    setIsGameOver(false);
+  };
+
+  const handleGameSize = () => {
+    Swal.fire({
+      title: "Select game size",
+      input: "range",
+      inputAttributes: {
+        min: "3",
+        max: "9",
+        step: "3",
+      },
+      inputValue: gameSize,
+      showCancelButton: true,
+      confirmButtonText: "Start",
+      cancelButtonText: "Cancel",
+      preConfirm: (value) => {
+        handleRestart(value);
+        setGameSize(value);
+      },
+    });
   };
 
   return (
     <Container>
       <GlobalStyle />
-      <Header onRestart={handleRestart} />
+      <Header onRestart={handleRestart} onNewGame={handleGameSize} />
       <Board cards={cards} onClickCard={handleClick} />
       <Footer moves={moves} time={time} />
     </Container>
