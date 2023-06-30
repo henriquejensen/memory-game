@@ -8,7 +8,7 @@ import GlobalStyle from "./styles/globalStyle";
 import Swal from "sweetalert2";
 import { DEFAULT_GAME_CONFIG } from "./constants";
 
-let intervalId: number;
+let intervalId: NodeJS.Timeout;
 
 function App() {
   const [gameSize, setGameSize] = useState(DEFAULT_GAME_CONFIG.size);

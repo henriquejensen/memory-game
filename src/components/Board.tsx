@@ -35,7 +35,12 @@ function Board({ cards, onClickCard }: BoardProps) {
   return (
     <Main>
       {cards.map((card, index) => (
-        <div key={index} onClick={() => onClickCard(card, index)} role="button">
+        <div
+          key={index}
+          onClick={() => onClickCard(card, index)}
+          role="button"
+          data-testid="card"
+        >
           {card.isFlipped ? (
             <Image src={card.image} alt={card.name} />
           ) : (
