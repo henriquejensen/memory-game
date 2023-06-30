@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import back from "../assets/back.svg";
+import back from "../assets/Back.svg";
 import { Card } from "../helpers/cardsGenerator";
 import { BREAKPOINTS } from "../constants";
 
